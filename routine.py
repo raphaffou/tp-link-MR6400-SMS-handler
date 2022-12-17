@@ -66,14 +66,17 @@ class connexion:
             self.switch()
         else:
             self.actualise()
-        try :
-            WebDriverWait(self.driver, 20).until(EC.visibility_of_any_elements_located((By.CSS_SELECTOR, "td.table-content")))
-        except Exception as e:
-            try:
-                self.driver.refresh()
-                self.connexionprocedure(self, self.password)
-            except Exception as e:
-                print("cannot reconnect")
+        WebDriverWait(self.driver, 20).until(EC.visibility_of_any_elements_located((By.CSS_SELECTOR, "td.table-content")))
+
+        # Failed session handler, induce instablility
+        # try :
+        #     WebDriverWait(self.driver, 20).until(EC.visibility_of_any_elements_located((By.CSS_SELECTOR, "td.table-content")))
+        # except Exception as e:
+        #     try:
+        #         self.driver.refresh()
+        #         self.connexionprocedure(self, self.password)
+        #     except Exception as e:
+        #         print("cannot reconnect")
         number = self.driver.find_elements(By.CSS_SELECTOR, "tr:first-child td.table-content:nth-child(3)")[0].get_attribute('innerHTML')
         mes = self.driver.find_elements(By.CSS_SELECTOR, "tr:first-child td.table-content:nth-child(4)")[0].get_attribute('innerHTML')
         if(mes[-1] == '.' and mes[-2] == '.' and mes[-3] == '.'): #plante pour n<3, check avant stp
